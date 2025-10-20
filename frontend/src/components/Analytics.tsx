@@ -91,7 +91,7 @@ const Analytics: React.FC = () => {
     }
   };
 
-  const handleExport = async (format: string) => {
+  const handleExport = async (format: "csv" | "json") => {
     try {
       const response = await analyticsAPI.exportTasks(format);
       const url = window.URL.createObjectURL(new Blob([response.data]));

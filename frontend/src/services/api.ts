@@ -203,8 +203,8 @@ export const usersAPI = {
 // Analytics API
 export const analyticsAPI = {
   getOverview: () => api.get<AnalyticsOverview>("/analytics/overview"),
-  getPerformance: () => api.get<PerformanceMetrics[]>("/analytics/performance"),
-  getTrends: (params?: { days?: number }) => api.get<TrendData[]>("/analytics/trends", { params }),
+  getPerformance: () => api.get<{ users: PerformanceMetrics[] }>("/analytics/performance"),
+  getTrends: (params?: { days?: number }) => api.get<{ trends: TrendData[] }>("/analytics/trends", { params }),
   exportTasks: (format?: "csv" | "json") =>
     api.get<Blob>("/analytics/export", { params: { format }, responseType: "blob" }),
 };
