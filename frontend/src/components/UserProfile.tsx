@@ -25,7 +25,7 @@ const UserProfile: React.FC = () => {
         email: response.data.email,
       });
     } catch (err: unknown) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       setError(error.response?.data?.message || "Failed to load profile");
     }
   };
@@ -52,7 +52,7 @@ const UserProfile: React.FC = () => {
       setProfile((prev) => (prev ? { ...prev, ...formData } : null));
       setEditing(false);
     } catch (err: unknown) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       setError(error.response?.data?.message || "Failed to update profile");
     } finally {
       setLoading(false);

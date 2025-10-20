@@ -3,12 +3,12 @@ import type { ReactNode } from "react";
 import { authAPI } from "../services/api";
 
 interface User {
-  id: string;
+  _id: string;
   username: string;
   email: string;
   firstName: string;
   lastName: string;
-  role: string;
+  role: "user" | "admin";
 }
 
 interface AuthContextType {

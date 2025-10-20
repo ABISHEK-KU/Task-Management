@@ -62,14 +62,6 @@ const TaskDetail: React.FC = () => {
   const [showDeleteCommentDialog, setShowDeleteCommentDialog] = useState<string | null>(null);
   const [showDeleteFileDialog, setShowDeleteFileDialog] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (id) {
-      fetchTask();
-      fetchComments();
-      fetchFiles();
-    }
-  }, [id]);
-
   const fetchTask = async () => {
     try {
       const response = await tasksAPI.getTask(id!);
@@ -99,6 +91,14 @@ const TaskDetail: React.FC = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (id) {
+      fetchTask();
+      fetchComments();
+      fetchFiles();
+    }
+  }, [id]);
 
   const handleStatusChange = async (newStatus: Task['status']) => {
     try {
@@ -217,7 +217,7 @@ const TaskDetail: React.FC = () => {
     return <div className="error-message">{error || 'Task not found'}</div>;
   }
 
-  const canEdit = user?.id === task.createdBy._id || user?.role === 'admin';
+  const canEdit = user?._id === task.createdBy._id || user?.role === 'admin';
   const canComment = user !== null;
 
   return (
@@ -316,7 +316,7 @@ const TaskDetail: React.FC = () => {
                   <button onClick={() => handleDownloadFile(file._id, file.originalName)}>
                     Download
                   </button>
-                  {(user?.id === file.uploadedBy._id || canEdit) && (
+                  {(user?._id === file.uploadedBy._id || canEdit) && (
                     <button onClick={() => handleDeleteFile(file._id)} className="btn-danger">
                       Delete
                     </button>
@@ -354,7 +354,7 @@ const TaskDetail: React.FC = () => {
                   <div className="comment-header">
                     <strong>{comment.author.username}</strong>
                     <span>{new Date(comment.createdAt).toLocaleString()}</span>
-                    {user?.id === comment.author._id && (
+                    {user?._id === comment.author._id && (
                       <div className="comment-actions">
                         {editingComment === comment._id ? (
                           <>

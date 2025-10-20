@@ -77,7 +77,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ taskId, onUploadSuccess }) => {
       setFiles([]);
       onUploadSuccess();
     } catch (err: unknown) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       setError(error.response?.data?.message || 'Failed to upload files');
     } finally {
       setUploading(false);

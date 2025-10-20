@@ -241,7 +241,7 @@ const TaskList: React.FC<TaskListProps> = ({ filters = {} }) => {
                     {(() => {
                       return (
                         <>
-                          {(user?.id === task?.createdBy._id ||
+                          {(user?._id === task?.createdBy._id ||
                             user?.role === "admin") && (
                             <>
                               <Link
@@ -258,7 +258,7 @@ const TaskList: React.FC<TaskListProps> = ({ filters = {} }) => {
                               </button>
                             </>
                           )}
-                          {user?.id === task.assignedTo._id ||
+                          {user?._id === task.assignedTo._id ||
                           user?.role === "admin" ? (
                             <select
                               value={task.status}

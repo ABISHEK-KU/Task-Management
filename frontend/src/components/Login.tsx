@@ -30,7 +30,7 @@ const Login: React.FC = () => {
       login(response.data.token, response.data.user);
       navigate("/dashboard");
     } catch (err: unknown) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       setError(error.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);

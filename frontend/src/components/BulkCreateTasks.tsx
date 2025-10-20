@@ -39,7 +39,7 @@ const BulkCreateTasks: React.FC = () => {
       const response = await usersAPI.getUsers();
       setUsers(response.data);
     } catch (err: unknown) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       console.error('Failed to fetch users:', error.response?.data?.message || error.message);
       // Fallback to empty array if API fails
       setUsers([]);
@@ -64,7 +64,7 @@ const BulkCreateTasks: React.FC = () => {
     setTagInputs(tagInputs.filter((_, i) => i !== index));
   };
 
-  const updateTask = (index: number, field: keyof TaskData, value: any) => {
+  const updateTask = (index: number, field: keyof TaskData, value: string | string[]) => {
     const updatedTasks = [...tasks];
     updatedTasks[index] = { ...updatedTasks[index], [field]: value };
     setTasks(updatedTasks);
@@ -105,7 +105,7 @@ const BulkCreateTasks: React.FC = () => {
       await tasksAPI.bulkCreateTasks({ tasks: validTasks });
       navigate('/tasks');
     } catch (err: unknown) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       setError(error.response?.data?.message || 'Failed to create tasks');
     } finally {
       setLoading(false);

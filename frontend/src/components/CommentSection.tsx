@@ -42,7 +42,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({
       setNewComment('');
       onCommentUpdate();
     } catch (err: unknown) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       setError(error.response?.data?.message || 'Failed to add comment');
     } finally {
       setLoading(false);
@@ -61,7 +61,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({
       setEditContent('');
       onCommentUpdate();
     } catch (err: unknown) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       setError(error.response?.data?.message || 'Failed to update comment');
     } finally {
       setLoading(false);
@@ -78,7 +78,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({
       await commentsAPI.deleteComment(commentId);
       onCommentUpdate();
     } catch (err: unknown) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       setError(error.response?.data?.message || 'Failed to delete comment');
     } finally {
       setLoading(false);
